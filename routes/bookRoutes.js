@@ -1,19 +1,28 @@
 const express = require('express');
 const router = express.Router();
-
-// Importamos el controlador
 const bookController = require('../controllers/bookController');
 
-// Definimos las rutas y las conectamos con las funciones del controlador
+// Importamos a nuestro "guardia"
+const { protect, isAdmin } = require('../middlewares/authMiddleware');
 
-// /api/books/
+// --- Rutas ---
+
+// Ruta PÚBLICA (Cualquiera puede ver los libros)
 router.get('/', bookController.getAllBooks);
-router.post('/', bookController.createBook);
 
-// /api/books/:id
+// Ruta PÚBLICA (Cualquiera puede ver un libro)
 router.get('/:id', bookController.getBookById);
-router.put('/:id', bookController.updateBook);
-router.delete('/:id', bookController.deleteBook);
+
+// --- Rutas PROTEGIDAS ---
+// Para CREAR un libro, primero debes pasar por el "guardia" (protect)
+// Y ADEMÁS, ser un administrador (isAdmin)
+router.post('/', protect, isAdmin, bookController.createBook);
+
+// Para ACTUALIZAR, igual
+router.put('/:id', protect, isAdmin, bookController.updateBook);
+
+// Para ELIMINAR, igual
+router.delete('/:id', protect, isAdmin, bookController.deleteBook);
 
 
 module.exports = router;
