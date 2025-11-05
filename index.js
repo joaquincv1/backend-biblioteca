@@ -9,10 +9,6 @@ const PORT = process.env.PORT || 3000;
 // --- Middlewares ---
 
 // 1. Middleware de CORS (¡Configuración clave para despliegue!)
-const whiteList = [
-    'http://localhost:4200', // Desarrollo local
-    'https://biblioteca-frontend-w1b7.vercel.app/' // <-- ¡Tu URL de Vercel!
-];
 
 const corsOptions = {
     origin: function (origin, callback) {
@@ -30,15 +26,19 @@ app.use(cors(corsOptions));
 // 2. Middleware para entender JSON
 app.use(express.json());
 
+const whiteList = [
+    'http://localhost:4200', // Desarrollo local
+    'https://biblioteca-frontend-w1b7.vercel.app/' // <-- ¡Tu URL de Vercel!
+];
+
+app.get('/api', (req, res) => {
+    res.json({ message: 'Bienvenido a la API de la Biblioteca' });
+});
 // --- Conexión a la Base de Datos ---
 mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log('✅ Conectado a MongoDB Atlas'))
     .catch((err) => console.error('❌ Error al conectar a MongoDB:', err));
 
-// --- Rutas (Ejemplo básico) ---
-app.get('/api', (req, res) => {
-    res.json({ message: 'Bienvenido a la API de la Biblioteca' });
-});
 
 // (Aquí conectaremos nuestras rutas de /api/libros, /api/usuarios, etc.)
 const bookRoutes = require('./routes/bookRoutes');
