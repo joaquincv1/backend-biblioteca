@@ -42,10 +42,12 @@ app.get('/api', (req, res) => {
 
 // (Aquí conectaremos nuestras rutas de /api/libros, /api/usuarios, etc.)
 const bookRoutes = require('./routes/bookRoutes');
+const authRoutes = require('./routes/authRoutes');
 
 // ¡Aquí le decimos a Express que use estas rutas!
 // Todas las rutas en 'bookRoutes' ahora tendrán el prefijo '/api/books'
 app.use('/api/books', bookRoutes);
+app.use('/api/auth', authRoutes);
 
 // --- Iniciar Servidor ---
 app.listen(PORT, () => {
