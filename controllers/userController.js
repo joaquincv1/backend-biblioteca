@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken'); // Para crear el token
 // OJO: No necesitamos bcrypt aquí para hashear, ¡el modelo User.js lo hace solo!
 // Pero SÍ lo necesitamos para comparar en el login.
 
+
 // --- Función Auxiliar para firmar el Token ---
 // (La ponemos aquí para tenerla a mano)
 const generateToken = (id) => {

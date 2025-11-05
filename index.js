@@ -10,8 +10,8 @@ const PORT = process.env.PORT || 3000;
 
 // 1. Middleware de CORS (¡Configuración clave para despliegue!)
 const whiteList = [
-    'http://localhost:4200', // URL de Angular en desarrollo
-    // Aquí irá tu URL de Vercel cuando la tengas (ej. 'https://mi-biblioteca.vercel.app')
+    //'http://localhost:4200', // Desarrollo local
+    'biblioteca-frontend-w1b7.vercel.app' // <-- ¡Tu URL de Vercel!
 ];
 
 const corsOptions = {
