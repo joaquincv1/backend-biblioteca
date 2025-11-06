@@ -29,9 +29,11 @@ app.get('/api', (req, res) => {
 
 const bookRoutes = require('./routes/bookRoutes');
 const authRoutes = require('./routes/authRoutes');
+const loanRoutes = require('./routes/loanRoutes');
 
 app.use('/api/books', bookRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/loans', loanRoutes);
 
 // --- Iniciar Servidor ---
 app.listen(PORT, () => {
