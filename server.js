@@ -26,10 +26,10 @@ app.use(cors(corsOptions));
 // 2. Middleware para entender JSON
 app.use(express.json());
 
-//const whiteList = [
-    //'http://localhost:4200', // Desarrollo local
-    //'https://biblioteca-frontend-w1b7.vercel.app/' // <-- ¡Tu URL de Vercel!
-//];
+const whiteList = [
+    'http://localhost:4200', // Desarrollo local
+    'https://biblioteca-frontend-w1b7.vercel.app/' // <-- ¡Tu URL de Vercel!
+];
 
 app.get('/api', (req, res) => {
     res.json({ message: 'Bienvenido a la API de la Biblioteca' });
