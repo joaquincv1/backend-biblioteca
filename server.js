@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const cors = require('cors');
+const cors = require('cors'); // Asegúrate de que esta línea esté
 require('dotenv').config();
 
 const app = express();
@@ -8,28 +8,12 @@ const PORT = process.env.PORT || 3000;
 
 // --- Middlewares ---
 
-// 1. Middleware de CORS (¡Configuración clave para despliegue!)
+// 1. Middleware de CORS (¡CONFIGURACIÓN ABIERTA!)
+// Esto garantiza que Vercel pueda conectar sin conflictos de origen.
+app.use(cors()); // <-- ¡La solución simple que permite todos los orígenes!
 
-// 🚩 SOLUCIÓN: LA WHITELIST DEBE DEFINIRSE PRIMERO 🚩
-app.use(cors({
-    origin: '*', // Permite solicitudes de CUALQUIER origen
-    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
-    allowedHeaders: ['Content-Type', 'Authorization'], // Headers permitidos
-}));
-
-const corsOptions = {
-    origin: function (origin, callback) {
-        if (whiteList.includes(origin) || !origin) {
-            callback(null, true);
-        } else {
-            callback(new Error('No permitido por CORS'));
-        }
-    }
-};
-app.use(cors(corsOptions));
-
-// 2. Middleware para entender JSON
-app.use(express.json()); // Mantenido en posición correcta (antes de las rutas)
+// 2. Middleware para entender JSON (¡Posición correcta!)
+app.use(express.json());
 
 // --- Conexión a la Base de Datos ---
 mongoose.connect(process.env.MONGO_URI)
@@ -38,7 +22,7 @@ mongoose.connect(process.env.MONGO_URI)
 
 // --- Rutas ---
 
-// Ruta de prueba (Mantenida después de express.json() para evitar conflictos)
+// Ruta de prueba
 app.get('/api', (req, res) => {
     res.json({ message: 'Bienvenido a la API de la Biblioteca' });
 });
