@@ -11,10 +11,11 @@ const PORT = process.env.PORT || 3000;
 // 1. Middleware de CORS (¡Configuración clave para despliegue!)
 
 // 🚩 SOLUCIÓN: LA WHITELIST DEBE DEFINIRSE PRIMERO 🚩
-const whiteList = [
-    'http://localhost:4200', 
-    'https://biblioteca-frontend-w1b7.vercel.app/api' // <-- ¡Tu URL de Vercel!
-];
+app.use(cors({
+    origin: '*', // Permite solicitudes de CUALQUIER origen
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
+    allowedHeaders: ['Content-Type', 'Authorization'], // Headers permitidos
+}));
 
 const corsOptions = {
     origin: function (origin, callback) {
