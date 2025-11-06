@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 3000;
 // 🚩 SOLUCIÓN: LA WHITELIST DEBE DEFINIRSE PRIMERO 🚩
 const whiteList = [
     'http://localhost:4200', 
-    'https://biblioteca-frontend-w1b7.vercel.app/' // <-- ¡Tu URL de Vercel!
+    'https://biblioteca-frontend-w1b7.vercel.app/api' // <-- ¡Tu URL de Vercel!
 ];
 
 const corsOptions = {
