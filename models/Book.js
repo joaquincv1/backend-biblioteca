@@ -1,7 +1,8 @@
+// backend/models/Book.js (VERSIÓN CORREGIDA PARA EL INVENTARIO)
+
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-// Este es el "plano" de nuestro documento de libro
 const BookSchema = new Schema({
     title: {
         type: String,
@@ -14,20 +15,22 @@ const BookSchema = new Schema({
     isbn: {
         type: String,
         required: [true, 'El ISBN es obligatorio'],
-        unique: true // No puede haber dos libros con el mismo ISBN
+        unique: true 
     },
     genre: {
         type: String,
         default: 'Desconocido'
     },
-    // Este campo es clave para saber si se puede prestar
-    available: {
-        type: Boolean,
-        default: true 
+    // 🚩 CAMBIO CRÍTICO 🚩
+    // Usamos un número para contar copias disponibles, esencial para préstamos.
+    copiesAvailable: { 
+        type: Number,
+        required: [true, 'El número de copias es obligatorio'],
+        default: 1, // Se asume al menos 1 copia al crear el libro
+        min: 0 // No puede haber menos de 0 copias disponibles
     }
 }, {
-    timestamps: true // Esto añade automáticamente createdAt y updatedAt
+    timestamps: true 
 });
 
-// Exportamos el modelo para que el resto de la app pueda usarlo
 module.exports = mongoose.model('Book', BookSchema);
